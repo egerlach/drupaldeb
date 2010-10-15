@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  project_id: 1
+  drupal_version: 1
+  release_version: MyString
+  release_status: MyString
+  status: MyString
+
+two:
+  project_id: 1
+  drupal_version: 1
+  release_version: MyString
+  release_status: MyString
+  status: MyString

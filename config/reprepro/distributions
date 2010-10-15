@@ -1,0 +1,12 @@
+Codename: recommended
+Architectures: i386 source
+Components: main
+
+Codename: developer
+Architectures: i386 source
+Components: main
+
+Codename: core
+Architectures: i386 source
+Components: main
+

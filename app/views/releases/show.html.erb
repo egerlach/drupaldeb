@@ -1,0 +1,28 @@
+<p>
+  <b>Project:</b>
+  <%=h @release.project_id %>
+</p>
+
+<p>
+  <b>Drupal version:</b>
+  <%=h @release.drupal_version %>
+</p>
+
+<p>
+  <b>Release version:</b>
+  <%=h @release.release_version %>
+</p>
+
+<p>
+  <b>Release status:</b>
+  <%=h @release.release_status %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @release.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_release_path(@release) %> |
+<%= link_to 'Back', releases_path %>

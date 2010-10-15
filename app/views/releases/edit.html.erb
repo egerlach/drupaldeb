@@ -1,0 +1,32 @@
+<h1>Editing release</h1>
+
+<% form_for(@release) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :project_id %><br />
+    <%= f.text_field :project_id %>
+  </p>
+  <p>
+    <%= f.label :drupal_version %><br />
+    <%= f.text_field :drupal_version %>
+  </p>
+  <p>
+    <%= f.label :release_version %><br />
+    <%= f.text_field :release_version %>
+  </p>
+  <p>
+    <%= f.label :release_status %><br />
+    <%= f.text_field :release_status %>
+  </p>
+  <p>
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @release %> |
+<%= link_to 'Back', releases_path %>
