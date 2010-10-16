@@ -12,6 +12,7 @@ class Release < ActiveRecord::Base
   end
 
   def validate
+    return true unless self.release_version.nil?
     info = DhMakeDrupal.get_project_info(self.project.code, self.drupal_version, self.release_status == 'developer')
     if info.nil?
       self.errors.add(:project_code, "Does not correspond to a valid project")
@@ -35,4 +36,24 @@ class Release < ActiveRecord::Base
     self.status = "OK"
     self.save
   end
+
+  def updatable?
+    return false if self.obsolete 
+    info = DhMakeDrupal.get_project_info(self.project.code, self.drupal_version, self.release_status == 'developer')
+    self.release_version != info[:release]
+  end
+
+  def self.update
+    Release.find(:all).each do |r|
+      if r.updatable?
+        new_release = r.clone
+        new_release.release_version = nil
+        new_release.status = 'Pending'
+        new_release.save
+        r.obsolete = true
+        r.save
+      end
+    end
+  end
+
 end

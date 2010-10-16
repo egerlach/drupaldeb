@@ -4,7 +4,7 @@ class ReleasesController < ApplicationController
   # GET /releases
   # GET /releases.xml
   def index
-    @releases = Release.find(:all)
+    @releases = Release.find(:all, :conditions => ['obsolete = ?', false], :joins => :project, :order => 'code')
 
     respond_to do |format|
       format.html # index.html.erb
