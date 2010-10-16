@@ -5,20 +5,17 @@
     <th>Project</th>
     <th>Drupal version</th>
     <th>Release version</th>
-    <th>Release status</th>
+    <th>Release quality</th>
     <th>Status</th>
   </tr>
 
 <% for release in @releases %>
   <tr>
-    <td><%=h release.project_id %></td>
+    <td><%=h release.project.code %></td>
     <td><%=h release.drupal_version %></td>
     <td><%=h release.release_version %></td>
     <td><%=h release.release_status %></td>
     <td><%=h release.status %></td>
-    <td><%= link_to 'Show', release %></td>
-    <td><%= link_to 'Edit', edit_release_path(release) %></td>
-    <td><%= link_to 'Destroy', release, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

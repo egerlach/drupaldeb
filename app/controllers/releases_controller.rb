@@ -25,6 +25,8 @@ class ReleasesController < ApplicationController
   # GET /releases/new.xml
   def new
     @release = Release.new
+    @release.drupal_version = 6
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +43,7 @@ class ReleasesController < ApplicationController
   # POST /releases.xml
   def create
     @release = Release.new(params[:release])
+    @release.status = "Pending"
 
     respond_to do |format|
       if @release.save

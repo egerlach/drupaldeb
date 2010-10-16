@@ -4,24 +4,16 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
+    <%= f.label :project_code, "Drupal project short name" %><br />
+    <%= f.text_field :project_code %>
   </p>
   <p>
     <%= f.label :drupal_version %><br />
-    <%= f.text_field :drupal_version %>
+    <%= f.select :drupal_version, [5, 6, 7] %>
   </p>
   <p>
-    <%= f.label :release_version %><br />
-    <%= f.text_field :release_version %>
-  </p>
-  <p>
-    <%= f.label :release_status %><br />
-    <%= f.text_field :release_status %>
-  </p>
-  <p>
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <%= f.label :release_status, "Release quality" %><br />
+    <%= f.select :release_status, ['recommended', 'developer'] %>
   </p>
   <p>
     <%= f.submit "Create" %>
