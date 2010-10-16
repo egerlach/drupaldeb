@@ -1,4 +1,6 @@
 class ReleasesController < ApplicationController
+  before_filter :disallow, :except => [:index, :show, :new, :create]
+
   # GET /releases
   # GET /releases.xml
   def index
