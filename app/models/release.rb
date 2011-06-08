@@ -4,7 +4,7 @@ class Release < ActiveRecord::Base
   belongs_to :project
   validates_presence_of :project_id
   validates_inclusion_of :drupal_version, :in => 5..7
-  validates_inclusion_of :release_status, :in => ['recommended', 'developer']
+  validates_inclusion_of :release_status, :in => ['recommended', 'supported', 'developer']
   validates_inclusion_of :status, :in => ['Pending', 'OK']
 
   def before_save
@@ -13,9 +13,9 @@ class Release < ActiveRecord::Base
 
   def validate
     return true unless self.release_version.nil?
-    info = DhMakeDrupal.get_project_info(self.project.code, self.drupal_version, self.release_status == 'developer')
+    info = DhMakeDrupal.get_project_info(self.project.code, self.drupal_version, self.release_status)
     if info.nil?
-      self.errors.add(:project_code, "Does not correspond to a valid project")
+      self.errors.add(:project_code, "Does not correspond to a valid project with a #{release_status} release")
     else
       self.release_version = info[:release]
     end
@@ -32,14 +32,14 @@ class Release < ActiveRecord::Base
 
   def build
     return unless self.status == "Pending"
-    DhMakeDrupal.build_package(self.project.code, self.drupal_version, self.release_status == 'developer')
+    DhMakeDrupal.build_package(self.project.code, self.drupal_version, self.release_status)
     self.status = "OK"
     self.save
   end
 
   def updatable?
     return false if self.obsolete 
-    info = DhMakeDrupal.get_project_info(self.project.code, self.drupal_version, self.release_status == 'developer')
+    info = DhMakeDrupal.get_project_info(self.project.code, self.drupal_version, self.release_status)
     self.release_version != info[:release]
   end
 

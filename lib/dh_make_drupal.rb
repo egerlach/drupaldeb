@@ -4,8 +4,8 @@ require 'tmpdir'
 class DhMakeDrupal
   DH_MAKE_DRUPAL_CMD = "/usr/bin/dh-make-drupal"
 
-  def self.get_project_info(project, drupal_version=nil, developer=false)
-    command_string = get_command_string(project, drupal_version, developer, "-r" )
+  def self.get_project_info(project, drupal_version=nil, release_status='recommended')
+    command_string = get_command_string(project, drupal_version, release_status, "-r" )
 
     return_value = {}
 
@@ -25,9 +25,9 @@ class DhMakeDrupal
     return return_value
   end
 
-  def self.build_package(project, drupal_version=nil, developer=false)
+  def self.build_package(project, drupal_version=nil, release_status='recommended')
 
-    command_string = get_command_string(project, drupal_version, developer)
+    command_string = get_command_string(project, drupal_version, release_status)
 
     build_path = Dir.mktmpdir("d", File.join(File.dirname(__FILE__), '../tmp/build'))
 
@@ -41,7 +41,7 @@ class DhMakeDrupal
       if l =~ /dpkg-genchanges  >\.\.\/(.*\.changes)/
         FileUtils.cd(old_pwd)
 
-        Reprepro.include(developer ? "developer" : "recommended", build_path + '/' + $1)
+        Reprepro.include(release_status, build_path + '/' + $1)
 
         break
       end
@@ -52,10 +52,10 @@ class DhMakeDrupal
 
   private
 
-  def self.get_command_string(project, drupal_version, developer, extra_opts="")
+  def self.get_command_string(project, drupal_version, release_status, extra_opts="")
     command_string = DH_MAKE_DRUPAL_CMD + " " + extra_opts + " "
     command_string += " -d #{drupal_version} " unless drupal_version.nil?
-    command_string += " -s developer " if developer
+    command_string += " -s #{release_status} "
     command_string += project
 
     return command_string

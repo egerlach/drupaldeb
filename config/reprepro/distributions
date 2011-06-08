@@ -2,6 +2,10 @@ Codename: recommended
 Architectures: i386 source
 Components: main
 
+Codename: supported
+Architectures: i386 source
+Components: main
+
 Codename: developer
 Architectures: i386 source
 Components: main
