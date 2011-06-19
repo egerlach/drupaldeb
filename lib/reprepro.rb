@@ -3,7 +3,7 @@ class Reprepro
     ' --basedir=' + File.join(File.dirname(__FILE__), '../db/reprepro')     +
     ' --confdir=' + File.join(File.dirname(__FILE__), '../config/reprepro') + 
     ' --outdir='  + File.join(File.dirname(__FILE__), '../public/debian')   +
-    ' --ignore=wrongdistribution '
+    ' --ignore=wrongdistribution --silent '
 
   REPREPRO_COMMAND = '/usr/bin/reprepro' + REPREPRO_OPTIONS
 
